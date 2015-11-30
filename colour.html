@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="STYLESHEET" href="main.css" type="text/css">
+<title>Average Colours</title>
+<META NAME="Description" CONTENT="Enter any two  HTML/CSS colours  (6 digit hex codes) and get the average colour.">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<!-- #BeginLibraryItem "/Library/head_home.lbi" -->
+<div id="nav-menu">
+<ul>
+<li><a class="rl" href="index.html"><img src="images/ss64.gif" title="Home" alt="Home"></a></li>
+<li>
+<!-- Search Google -->
+<form action="http://www.google.com/search" method="get" style="margin:0px;padding:0px;">
+<div align="right">
+<input name="q" type="text" class="body" size="25">
+<input class="submit" type="submit" value="Search">
+<input type="hidden" name="q" value="site:ss64.com">
+</div>
+</form>
+</li>
+</ul>
+</div>
+<!-- #EndLibraryItem -->
+<h1>Average colour codes</h1>
+<p>Enter any two HTML/CSS colours (6 digit hex codes) and get the average:</p> 
+<script language="JavaScript">
+// ==========================================================================
+//  JavaScript HTML Colour Code Averages
+//  Copyright (C) 2011  SS64.com
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  A local copy of the GNU General Public License is available here:
+//  http://ss64.com/docs/gpl-3.0.txt
+
+function roundnumber(rnum) {
+  var newnumber = Math.round(rnum*Math.pow(10,0))/Math.pow(10,0);
+  return newnumber; 
+}
+
+function GetDec(Hex)
+{
+   if(Hex == "A")
+      Value = 10;
+   else
+   if(Hex == "B")
+      Value = 11;
+   else
+   if(Hex == "C")
+      Value = 12;
+   else
+   if(Hex == "D")
+      Value = 13;
+   else
+   if(Hex == "E")
+      Value = 14;
+   else
+   if(Hex == "F")
+      Value = 15;
+   else
+      Value = eval(Hex)
+   return Value;
+}
+function GetHex(Dec)
+{
+   if(Dec == 10)
+      Value = "A";
+   else
+   if(Dec == 11)
+      Value = "B";
+   else
+   if(Dec == 12)
+      Value = "C";
+   else
+   if(Dec == 13)
+      Value = "D";
+   else
+   if(Dec == 14)
+      Value = "E";
+   else
+   if(Dec == 15)
+      Value = "F";
+   else
+      Value = "" + Dec;
+   return Value;
+}
+function HexAverage()
+{
+var cr = document.getElementById('swatchResult');
+var sw1 = document.getElementById('swatch1');
+var sw2 = document.getElementById('swatch2');
+
+Input = window.document.forms['ColourForm'].elements['HexIn'].value;
+Input2 = window.document.forms['ColourForm'].elements['HexIn2'].value;
+
+if (Input.charAt(0) == '#' || Input.length !=6) {
+	Input = '000000';
+}
+if (Input2.charAt(0) == '#' || Input2.length !=6) {
+	Input2 = '000000';
+}
+
+Input = Input.toUpperCase();
+Input2 = Input2.toUpperCase();
+a = GetDec(Input.substring(0, 1));
+b = GetDec(Input.substring(1, 2));
+c = GetDec(Input.substring(2, 3));
+d = GetDec(Input.substring(3, 4));
+e = GetDec(Input.substring(4, 5));
+f = GetDec(Input.substring(5, 6));
+
+a2 = GetDec(Input2.substring(0, 1));
+b2 = GetDec(Input2.substring(1, 2));
+c2 = GetDec(Input2.substring(2, 3));
+d2 = GetDec(Input2.substring(3, 4));
+e2 = GetDec(Input2.substring(4, 5));
+f2 = GetDec(Input2.substring(5, 6));
+
+x = (a * 16) + b;
+y = (c * 16) + d;
+z = (e * 16) + f;
+
+x2 = (a2 * 16) + b2;
+y2 = (c2 * 16) + d2;
+z2 = (e2 * 16) + f2;
+
+Red = roundnumber((x + x2)/2);
+Green = roundnumber((y + y2)/2);
+Blue = roundnumber((z + z2)/2);
+
+a = GetHex(Math.floor(Red / 16));
+b = GetHex(Red % 16);
+c = GetHex(Math.floor(Green / 16));
+d = GetHex(Green % 16);
+e = GetHex(Math.floor(Blue / 16));
+f = GetHex(Blue % 16);
+
+z = a + b + c + d + e + f;
+
+window.document.forms['ColourForm'].elements['HexOut'].value = z;
+newcolour = '#' + z;
+cr.style.background = newcolour
+
+swatchcol1 = '#' + Input;
+sw1.style.background = swatchcol1
+
+swatchcol2 = '#' + Input2;
+sw2.style.background = swatchcol2
+}
+</script>
+<table align="center" width="430">
+<form name="ColourForm">
+<tbody><tr> 
+<th class="body">Hex Codes</th>
+<th> </th>
+<th>&nbsp;</th></tr>
+<tr> 
+<td nowrap="nowrap">#<input name="HexIn" type="text" value="B0D0FA" size="22" maxlength="6"></td>
+<td>&nbsp;</td>
+<td><div align="center">Average colour</div></td>
+</tr>
+<tr>
+<td><div id="swatch1">&nbsp;<br></div></td>
+<td><input value="Average" onClick="HexAverage()" name="Button" type="button"></td>
+<td nowrap="nowrap">#<input name="HexOut" maxlength="6" size="22" type="text"></td></tr>
+<tr> 
+<td nowrap="nowrap">#<input name="HexIn2" type="text" value="656565" size="22" maxlength="6"></td>
+<td>&nbsp;</td>
+<td><div id="swatchResult"><br>&nbsp;</div></td></tr>
+<tr>
+<td><div id="swatch2">&nbsp;<br></div></td>
+<td>&nbsp; </td><td>&nbsp;</td></tr>
+</tbody></form></table><br>
+<table  align="center" >
+<tbody>
+<tr>
+<td valign="top">
+<table cellpadding="2" cellspacing="2" width="100%">
+<tbody><tr>
+<td> <div align="right">Sample </div></td>
+<td width="85">Colours: </td>
+</tr>
+<tr>
+<td> FFFFFF
+</td>
+<td bgcolor="#ffffff">
+</td></tr>
+<tr>
+<td> FFFF00
+</td>
+<td bgcolor="#ffff00">
+</td></tr>
+<tr>
+<td> FF6600</td>
+<td bgcolor="#ff6600">
+</td></tr>
+<tr>
+<td> FF3399
+</td>
+<td bgcolor="#ff3399">
+</td></tr>
+<tr>
+<td> FF0000
+</td>
+<td bgcolor="#ff0000">
+
+</td></tr>
+</tbody></table>
+</td><td valign="top">
+
+<table cellpadding="2" cellspacing="2" width="100%">
+<tbody><tr>
+<td>&nbsp; </td>
+<td width="85">&nbsp; </td>
+</tr>
+
+<tr>
+<td> 00CCFF </td>
+<td bgcolor="#00ccff">&nbsp;</td>
+</tr>
+
+<tr>
+<td> 0000FF </td>
+<td bgcolor="#0000ff">&nbsp;</td>
+</tr>
+<tr>
+<td> 6600CC </td>
+<td bgcolor="#6600cc"></td>
+</tr>
+<tr>
+<td> 000099 </td>
+<td bgcolor="#000099">&nbsp;</td>
+</tr>
+<tr>
+<td> 666666 </td>
+<td bgcolor="#666666"></td>
+</tr></tbody></table>
+
+</td><td valign="top">
+<table class="color_table" cellpadding="2" cellspacing="2" width="100%">
+<tbody><tr>
+<td>&nbsp; </td>
+<td width="85">&nbsp; </td>
+</tr>
+<tr>
+<td> 009999 </td>
+<td bgcolor="#009999">&nbsp;</td>
+</tr>
+<tr>
+<td> 009966 </td>
+<td bgcolor="#009966">&nbsp;</td>
+</tr>
+<tr>
+<td> 009900 </td>
+<td bgcolor="#009900">&nbsp;</td>
+</tr>
+
+<tr>
+<td> 006600 </td>
+<td bgcolor="#006600">&nbsp;</td>
+</tr>
+<tr>
+<td> 000000 </td>
+<td style="color: white;" bgcolor="#000000">&nbsp;</td>
+</tr>
+<tr>
+<td></td></tr></tbody></table>
+</tbody></table>
+<p><i> “Speed kills colour... the gyroscope, when turning at full speed, shows up gray” - Paul Morand</i></p>
+<p><b>Related:</b></p>
+<p><a href="convert.html">Convert page</a><br>
+<a href="http://www.colourlovers.com/">ColourLovers</a> - More colours<br>
+<a href="http://www.perbang.dk/rgbgradient/">Gradients</a> - 
+Perbang.dk<br>
+<a href="http://colorschemedesigner.com/">Color Scheme Designer </a> - Design colour themes</p>
+<!-- #BeginLibraryItem "/Library/foot_root.lbi" -->
+<p align="left">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6140977852749469";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "text_image";
+google_ad_channel ="";
+google_color_border = "CCCCCC";
+google_color_bg = "CCCCCC";
+google_color_link = "000000";
+google_color_text = "333333";
+google_color_url = "0000FF";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+</p>
+<div align="center">
+<hr size="1">
+<p id="top"><a href="#"><img src="images/top-4.gif" width="47" height="53" border="0" alt="Back to the Top" title="Back to the Top"></a></p>
+<p class="tagline">&copy; Copyright <a href="index.html">SS64.com</a> 1999-2011<br>
+Some rights reserved<br>
+</p>
+</div>
+<!-- #EndLibraryItem -->
+</body>
+</html>
+
+<!-- Localized -->

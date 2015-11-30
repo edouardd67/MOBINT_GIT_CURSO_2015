@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<META NAME="Description" CONTENT="ASCII Table with Unicode and HTML entities (ISO 8859-1)">
+	<META NAME="Keywords" CONTENT="ASCII Unicode Table">
+<link rel="STYLESHEET" href="main.css" type="text/css">
+  <title>Convert - Megabytes MB MiB Gigabytes GB GiB</title>
+
+  <style type="text/css">
+<!--
+.raised {padding-left:1px; color:windowtext; font-weight:400; text-decoration:none; vertical-align:bottom; border:none; padding-top: 1px; padding-right: 1px;}
+.smallnotes {font-size: smaller}
+.notes {
+font-size: 80%;
+font-family:Helvetica,Arial,Verdana,sans-serif;}
+#base36{ 
+text-transform: uppercase; 
+font-size:100%;
+font-family:Helvetica,Arial,sans-serif; font-weight:normal;}
+-->
+  </style>
+  <script type="text/javascript">
+<!--
+function convert(f) {
+  f.kb.value=Math.round(f.byte.value/1024*100000)/100000
+  f.mb.value=Math.round(f.byte.value/1048576*100000)/100000
+  f.gb.value=Math.round(f.byte.value/1073741824*100000)/100000
+  f.tb.value=Math.round(f.byte.value/1099511627776*100000)/100000
+}
+
+function convertkb(f) {
+  f.byte.value=Math.round(f.kb.value*1024*100000)/100000
+  f.mb.value=Math.round(f.kb.value/1024*100000)/100000
+  f.gb.value=Math.round(f.kb.value/1048576*100000)/100000
+  f.tb.value=Math.round(f.kb.value/1073741824*100000)/100000
+}
+
+function convertmb(f) {
+  f.byte.value=Math.round(f.mb.value*1048576*100000)/100000
+  f.kb.value=Math.round(f.mb.value*1024*100000)/100000
+  f.gb.value=Math.round(f.mb.value/1024*100000)/100000
+  f.tb.value=Math.round(f.mb.value/1048576*100000)/100000
+}
+
+function convertgb(f) {
+  f.byte.value=Math.round(f.gb.value*1073741824*100000)/100000
+  f.kb.value=Math.round(f.gb.value*1048576*100000)/100000
+  f.mb.value=Math.round(f.gb.value*1024*100000)/100000
+  f.tb.value=Math.round(f.gb.value/1024*100000)/100000
+}
+function converttb(f) {
+  f.byte.value=Math.round(f.tb.value*1099511627776*100000)/100000
+  f.kb.value=Math.round(f.tb.value*1073741824*100000)/100000
+  f.mb.value=Math.round(f.tb.value*1048576*100000)/100000
+  f.gb.value=Math.round(f.tb.value*1024*100000)/100000
+}
+
+function base_convert(number, from_base, to_base) {
+    return parseInt(number, from_base || 10).toString(to_base || 10);
+}
+
+
+
+
+
+// ==========================================================================
+// JavaScript Converter for Decimal/Hexadecimal Numerals
+// Copyright (C) 2006 Netzreport (netzreport.googlepages.com)
+//
+// Website: http://netzreport.googlepages.com/online_converter_for_dec_hex.html
+//
+// Note: A more simple converter utilizing the functions parseInt() and
+//       toString() is available here:
+//       http://netzreport.googlepages.com/online_converter_for_numerals.html
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+//
+// The GNU General Public License is also available from:
+// http://www.gnu.org/copyleft/gpl.html
+//
+// A local copy of the GNU General Public License is available here:
+// http://netzreport.googlepages.com/gpl.txt
+// ==========================================================================
+//
+// --------------------------------------------------------------------------
+// 2006-11-17: First release
+// --------------------------------------------------------------------------
+
+// Global variables:
+var decnumerals = "0123456789";
+var hexnumerals = "0123456789ABCDEF";
+// Higher values can lead to wrong results (due to JavaScript limitations?):
+var maxdec = 4503599627370495;  // Math.pow(16,13)-1
+var maxhex = 13;  // number of places
+
+function dectohex () {
+  // Clear output field:
+  document.converter.hexadecimal.value = "";
+
+  // Check if input is a legal decimal numeral:
+  var decinput = document.converter.decimal.value
+  for (var i = 0; i < decinput.length; i++) {
+    if (decnumerals.indexOf(decinput.charAt(i)) == -1) {
+      alert("Illegal decimal numeral! Only these symbols are allowed: " + decnumerals);
+      return;
+    }
+  }
+
+  // Check if decimal numeral is not too large:
+  if (decinput > maxdec) {
+    alert("Please enter a decimal numeral not greater than " + maxdec + ".");
+    return;
+  }
+
+  // Convert decimal to hexadecimal numeral:
+  var decinput_temp = decinput;
+  var factors = 1;
+  while (decinput_temp > 15) {
+    decinput_temp = Math.floor(decinput_temp / 16);
+    factors++;
+  }
+  var hexoutput = "";
+  var mathpow_temp = 0;
+  for (var i = factors; i >= 1; i--) {
+    mathpow_temp = Math.pow(16, i-1);
+    hexoutput = hexoutput + hexnumerals.charAt(Math.floor(decinput / mathpow_temp));
+    decinput = decinput - (Math.floor(decinput / mathpow_temp) * mathpow_temp);
+  }
+  document.converter.hexadecimal.value = hexoutput;
+  
+  // Now do the Base 36 stuff
+  document.converter.base36.value = base_convert(document.converter.decimal.value, 10, 36);
+}
+
+function hextodec () {
+  // Clear output field:
+  document.converter.decimal.value = "";
+
+  // Check if input is a legal hexadecimal numeral:
+  var hexinput = document.converter.hexadecimal.value.toUpperCase();
+  for (var i = 0; i < hexinput.length; i++) {
+    if (hexnumerals.indexOf(hexinput.charAt(i)) == -1) {
+      alert("Illegal hexadecimal numeral! Only these symbols are allowed: " + hexnumerals);
+      return;
+    }
+  }
+
+  // Check if hexadecimal numeral is not too large:
+  if (hexinput.length > maxhex) {
+    alert("Please enter a hexadecimal numeral with not more than " + maxhex + " characters!");
+    return;
+  }
+
+  // Convert hexadecimal to decimal:
+  var decoutput = 0;
+  for (var i = 0; i < hexinput.length; i++) {
+    decoutput = decoutput + hexnumerals.indexOf(hexinput.charAt(i)) * Math.pow(16, hexinput.length - i-1);
+  }
+  document.converter.decimal.value = decoutput;
+
+  // Now do the Base 36 stuff
+  document.converter.base36.value = base_convert(decoutput, 10, 36);
+}
+
+function basetodec () {
+	document.converter.decimal.value = base_convert(document.converter.base36.value, 36, 10);
+	//and call the hex function
+	dectohex()
+}
+//-->
+</script>
+
+</head>
+<body>
+<!-- #BeginLibraryItem "/Library/head_home.lbi" -->
+<div id="nav-menu">
+<ul>
+<li><a class="rl" href="index.html"><img src="images/ss64.gif" title="Home" alt="Home"></a></li>
+<li>
+<!-- Search Google -->
+<form action="http://www.google.com/search" method="get" style="margin:0px;padding:0px;">
+<div align="right">
+<input name="q" type="text" class="body" size="25">
+<input class="submit" type="submit" value="Search">
+<input type="hidden" name="q" value="site:ss64.com">
+</div>
+</form>
+</li>
+</ul>
+</div>
+<!-- #EndLibraryItem -->
+<h1>Convert:</h1>
+<div>  <blockquote>
+<form action="#">
+<table id="example" cellpadding="3" cellspacing="3">
+<tr> 
+<td align="center" class="tblhead">Bytes</td>
+<td align="center" class="tblhead">Kibibytes (KiB) </td>
+<td align="center" class="tblhead">Mebibytes (MiB) </td>
+<td align="center" class="tblhead">Gibibytes (GiB) </td>
+<td align="center" class="tblhead">Tebibytes (TiB) </td>
+<td align="center">&nbsp;</td>
+</tr>
+<tr> 
+
+<td align="center"><input type="text" size="20" name="byte" value="549755813888" onblur="return convert(this.form)"></td>
+<td align="center"><input type="text" size="20" name="kb" value="536870912" onblur="return convertkb(this.form)"></td>
+<td align="center"><input type="text" size="10" name="mb" value="524288" onblur="return convertmb(this.form)"></td>
+<td align="center"><input type="text" size="10" name="gb" value="512" onblur="return convertgb(this.form)"></td>
+<td align="center"><input type="text" size="10" name="tb" value="0.5" onblur="return converttb(this.form)"></td>
+<td align="center"><input type="button" name="B2" value="Convert"></td>
+</tr>
+</table>
+</form></blockquote></div>
+<blockquote>
+<p align="left" class="notes">Computer  files are binary, measured as a <a href="http://en.wikipedia.org/wiki/Power_of_two">power of 2</a> so 1 Kibibyte (KiB)  = 1024 bytes, This is unlike Base 10 numbers where  1 Kilobyte (KB) = 1000 Bytes.<br>
+<br>
+
+1 <a href="http://en.wikipedia.org/wiki/Kibibyte">Kibibyte</a> (KiB) = 1024 Bytes<br>
+1 <a href="http://en.wikipedia.org/wiki/Mebibyte">Mebibyte</a> (MiB) = 1024 Kibibytes (KiB) <br>
+1 <a href="http://en.wikipedia.org/wiki/Gibibyte">Gibibyte</a> (GiB) = 1024 Mebibytes (MiB) <br>
+1 <a href="http://en.wikipedia.org/wiki/Tebibyte">Tebibyte</a> (TiB) = 1024 Gibibytes (GiB) <br> 
+1 <a href="http://en.wikipedia.org/wiki/Pebibyte">Pebibyte</a> (PiB) = 1024 Tebibytes (TiB)<br>
+1 <a href="http://en.wikipedia.org/wiki/Exbibyte">Exbibyte</a> (EiB) = 1024 Pebibytes (PiB)</p>
+</blockquote>
+<form name="converter" onsubmit="return false;" action="#">
+<blockquote>
+<table width="750" border="0">
+<tr>
+<td  class="body">Decimal:&nbsp;<input name="decimal" type="text" class="body" value="165" size="15" OnChange="dectohex()"></td>
+<td  class="body"><input type="button" name="Button" value="Convert"> &nbsp; Hex:&nbsp;<input name="hexadecimal" type="text" class="body" value="A5" size="15" OnChange="hextodec()"> </td>
+<td  class="body">&nbsp; <a href="http://en.wikipedia.org/wiki/Base_36">Base36</a>:&nbsp; <input name="base36" type="text" id="base36" value="4l" size="15" OnChange="basetodec()"> </td>
+</tr>
+</table></blockquote>
+</form>
+<p><br><i>&ldquo;Failure of the NASA <a href="http://en.wikipedia.org/wiki/Mars_Climate_Orbiter#Communications_loss">Mars Climate Orbiter</a> occurred because the flight system software  was written using metric units, while the ground crew were entering course correction and thruster data using  Imperial measures&rdquo; </i></p>
+<p><b>More conversion tools:</b></p>
+<p>
+<a href="prime.html">Primes</a> / <a href="unicode.html">Unicode</a>, <a href="symbols.html">Symbols</a><br>
+<a href="colour.html">Average HTML colour codes </a><br>
+<a href="http://babelfish.yahoo.com/">BabelFish</a> / <a href="http://translate.google.com/#">GoogleTranslate</a><br>
+<a href="http://streetpc.free.fr/text/">Text Utils</a> / <a href="http://txt2re.com/">Regex</a><br>
+<a href="http://www.clipconverter.cc/">Clip Converter</a> <br>
+<a href="http://www.adobe.com/products/acrobat/access_onlinetools.html">PDF</a> / <a href="http://www.onlineconversion.com/">Units</a> / <a href="http://www.timeanddate.com/worldclock/converter.html">World Time</a></p>
+<!-- #BeginLibraryItem "/Library/foot_root.lbi" -->
+<p align="left">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6140977852749469";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "text_image";
+google_ad_channel ="";
+google_color_border = "CCCCCC";
+google_color_bg = "CCCCCC";
+google_color_link = "000000";
+google_color_text = "333333";
+google_color_url = "0000FF";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+</p>
+<div align="center">
+<hr size="1">
+<p id="top"><a href="#"><img src="images/top-4.gif" width="47" height="53" border="0" alt="Back to the Top" title="Back to the Top"></a></p>
+<p class="tagline">&copy; Copyright <a href="index.html">SS64.com</a> 1999-2011<br>
+Some rights reserved<br>
+</p>
+</div>
+<!-- #EndLibraryItem -->
+</body>
+</html>
+
+<!-- Localized -->
